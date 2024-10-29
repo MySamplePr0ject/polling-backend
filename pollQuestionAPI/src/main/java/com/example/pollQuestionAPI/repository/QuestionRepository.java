@@ -1,0 +1,80 @@
+package com.example.pollQuestionAPI.repository;
+
+import com.example.pollQuestionAPI.model.Question;
+import com.example.pollQuestionAPI.repository.mapper.QuestionMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class QuestionRepository {
+    private final String TABLE = "questions";
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    public Question save (Question question){
+        try {
+            String sql = "INSERT INTO " + TABLE + " (question, answer_a, answer_b, answer_c, answer_d) VALUES (?, ?, ?, ?, ?);";
+            jdbcTemplate.update(sql, question.getQuestion(), question.getAnswerA(), question.getAnswerB(), question.getAnswerC(), question.getAnswerD());
+            Question createdQuestion = this.getByQuestion(question.getQuestion());
+            return createdQuestion;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public String update (Question question){
+        try{
+            String sql = "UPDATE " + TABLE + " SET question = ?, answer_a = ?, answer_b = ?, answer_c = ?, answer_d = ? WHERE id = ?";
+            jdbcTemplate.update(sql, question.getQuestion(), question.getAnswerA(), question.getAnswerB(), question.getAnswerC(), question.getAnswerD(), question.getId());
+            return "Question " + question.getId() + "was successfully updated:\n" + question;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public String deleteByID (int id){
+        try{
+            String sql = "DELETE FROM " + TABLE + " WHERE id =?";
+            jdbcTemplate.update(sql, id);
+            return "Question " + id + " was successfully deleted and will no longer appear in polls.";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public Question getByID (int id){
+        try{
+            String sql = "SELECT * FROM " + TABLE + " WHERE id =?";
+            return jdbcTemplate.queryForObject(sql, new QuestionMapper(), id);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public Question getByQuestion(String question){
+        try{
+            String sql = "SELECT * FROM " + TABLE + " WHERE question =?";
+            return jdbcTemplate.queryForObject(sql, new QuestionMapper(), question);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public List<Question> getAllQuestions(){
+        try{
+            String sql = "SELECT * FROM " + TABLE;
+            return jdbcTemplate.query(sql, new QuestionMapper());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+}
