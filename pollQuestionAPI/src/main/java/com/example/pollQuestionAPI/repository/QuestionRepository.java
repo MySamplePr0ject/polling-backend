@@ -26,22 +26,23 @@ public class QuestionRepository {
         }
     }
 
-    public String update (Question question){
+    public Question update (Question question){
         try{
             String sql = "UPDATE " + TABLE + " SET question = ?, answer_a = ?, answer_b = ?, answer_c = ?, answer_d = ? WHERE id = ?";
             jdbcTemplate.update(sql, question.getQuestion(), question.getAnswerA(), question.getAnswerB(), question.getAnswerC(), question.getAnswerD(), question.getId());
-            return "Question " + question.getId() + "was successfully updated:\n" + question;
+            return this.getByID(question.getId());
         }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    public String deleteByID (int id){
+    public Question deleteByID (int id){
         try{
             String sql = "DELETE FROM " + TABLE + " WHERE id =?";
+            Question deletedQuestion = this.getByID(id);
             jdbcTemplate.update(sql, id);
-            return "Question " + id + " was successfully deleted and will no longer appear in polls.";
+            return deletedQuestion;
         }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
