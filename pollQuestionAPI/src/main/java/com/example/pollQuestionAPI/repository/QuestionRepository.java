@@ -18,6 +18,7 @@ public class QuestionRepository {
         try {
             String sql = "INSERT INTO " + TABLE + " (question, answer_a, answer_b, answer_c, answer_d) VALUES (?, ?, ?, ?, ?);";
             jdbcTemplate.update(sql, question.getQuestion(), question.getAnswerA(), question.getAnswerB(), question.getAnswerC(), question.getAnswerD());
+//            System.out.println(question.getQuestion());
             Question createdQuestion = this.getByQuestion(question.getQuestion());
             return createdQuestion;
         }catch (Exception e){
@@ -59,9 +60,10 @@ public class QuestionRepository {
         }
     }
 
-    public Question getByQuestion(String question){
+    public Question getByQuestion (String question){
         try{
-            String sql = "SELECT * FROM " + TABLE + " WHERE question =?";
+            String sql = "SELECT * FROM " + TABLE + " WHERE question = ?";
+//            System.out.println("parameter: " + question + "\nsql tring: " + sql + "\nTABLE: " + TABLE);
             return jdbcTemplate.queryForObject(sql, new QuestionMapper(), question);
         }catch (Exception e){
             System.out.println(e.getMessage());
