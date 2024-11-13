@@ -2,16 +2,16 @@ package com.example.pollResaultsAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ResultSet {
-    int id;
+public class AnswerSet {
+    private int id;
     @JsonProperty("question_ref")
-    int questionRef;
+    private int questionRef;
     @JsonProperty("answer")
-    char answerGiven;
+    private char answerGiven;
     @JsonProperty("user_id")
-    int userId;
-
-    public ResultSet() {
+    private int userId;
+    private String email;
+    public AnswerSet() {
     }
 
     public int getId() {
@@ -34,7 +34,7 @@ public class ResultSet {
         return answerGiven;
     }
 
-    public void setAnswerGiven(String answerGiven) {
+    public void setAnswerGiven(char answerGiven) {
         this.answerGiven = answerGiven;
     }
 
@@ -46,9 +46,17 @@ public class ResultSet {
         this.userId = userId;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
-        return "ResultSet{" +
+        return "AnswerSet{" +
                 "id=" + id +
                 ", questionRef=" + questionRef +
                 ", answerGiven=" + answerGiven +
