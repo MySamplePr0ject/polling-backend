@@ -10,7 +10,6 @@ public class AnswerSet {
     private char answerGiven;
     @JsonProperty("user_id")
     private int userId;
-    private String email;
     public AnswerSet() {
     }
 
@@ -44,14 +43,6 @@ public class AnswerSet {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override

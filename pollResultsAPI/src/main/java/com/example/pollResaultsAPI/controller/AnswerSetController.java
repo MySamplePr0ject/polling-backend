@@ -11,27 +11,27 @@ public class AnswerSetController {
     @Autowired
     AnswerSetService answerSetService;
     @PostMapping
-    public String submitNewAnswer (@RequestBody AnswerSet answerSet){
-        return answerSetService.submitAnswerSet(answerSet);
+    public String submitNewAnswer (@RequestBody AnswerSet answerSet, @RequestHeader("email") String email){
+        return answerSetService.submitAnswerSet(answerSet, email);
     }
 
     @PutMapping
-    public String updatePollResponse (@RequestBody AnswerSet answerSet){
-        return answerSetService.updateSet(answerSet);
+    public String updatePollResponse (@RequestBody AnswerSet answerSet, @RequestHeader("email") String email){
+        return answerSetService.updateSet(answerSet, email);
     }
 
     @DeleteMapping("/{responseId}")
-    public String deletePollResponse (@PathVariable int responseId){
-        return answerSetService.deleteResponse(responseId);
+    public String deletePollResponse (@PathVariable int responseId, @RequestHeader("email") String email){
+        return answerSetService.deleteResponse(responseId, email);
     }
 
     @GetMapping("/user")
-    public String getAllUserResponses (@RequestParam int id){
-        return answerSetService.getAllUserResponses(id);
+    public String getAllUserResponses (@RequestParam int id, @RequestHeader("email") String email){
+        return answerSetService.getAllUserResponses(id, email);
     }
 
     @GetMapping("/question")
-    public String getAllQuestionResponses (@RequestParam int id){
-        return answerSetService.getAllQuestionResponses(id);
+    public String getAllQuestionResponses (@RequestParam int id, @RequestHeader("email") String email){
+        return answerSetService.getAllQuestionResponses(id, email);
     }
 }

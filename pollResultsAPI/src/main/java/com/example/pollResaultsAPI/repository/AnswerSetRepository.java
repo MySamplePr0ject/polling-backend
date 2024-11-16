@@ -74,6 +74,7 @@ public class AnswerSetRepository {
     public List<AnswerSet> getResultsByQuestion (int questionId){
         try {
             String sql = "SELECT * FROM " + TABLE + " WHERE question_ref = ?";
+//            System.out.println(jdbcTemplate.query(sql, new AnswerSetMapper(), questionId));
             return jdbcTemplate.query(sql, new AnswerSetMapper(), questionId);
         }catch (Exception e){
             System.out.println(e.getMessage());

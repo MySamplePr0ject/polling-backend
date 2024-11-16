@@ -13,3 +13,11 @@ spring:
   h2:
     console:
       enabled: true
+userAPI:
+  url: http://localhost:8081
+questionAPI:
+  url: http://localhost:8082
+#logging:
+#  level:
+#    com.example.pollResaultsAPI: DEBUG
+#    com.example.pollQuestionAPI: DEBUG
