@@ -154,4 +154,15 @@ public class AnswerSetService {
                 throw new IllegalStateException("Unexpected value: " + ans);
         }
     }
+
+    //Handles answers deletion upon user deletion.
+    public String deleteUserResponses (int id, String auth){
+        if (auth == "Th!$^I$^C0rrect"){
+            UserDTO deletedUser = findUserById(id);
+            List<AnswerSet> deletedResponses = answerSetRepository.deleteAllUserAnswers(id);
+            return "Total of " + deletedResponses.size() + " responses from user " + deletedUser.getName() + " " + deletedUser.getSurname() + " were deleted";
+        }else {
+            return "Illegal action. this incident will be reported";
+        }
+    }
 }

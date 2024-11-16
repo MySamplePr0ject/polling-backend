@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Locale;
 
 @Repository
 public class AnswerSetRepository {
@@ -82,13 +83,24 @@ public class AnswerSetRepository {
         }
     }
 
-
-
     public AnswerSet getResultSetById (int id){
         try {
             String sql = "SELECT * FROM " + TABLE + " WHERE id = ?";
 //            System.out.println(jdbcTemplate.queryForObject(sql, new AnswerSetMapper(), id));
             return jdbcTemplate.queryForObject(sql, new AnswerSetMapper(), id);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    //Handles answers deletion upon user deletion.
+    public List<AnswerSet> deleteAllUserAnswers (int id){
+        try{
+            List<AnswerSet> deletedResponses = getResultsByUser(id);
+            String sql = "DELETE FROM " + TABLE + " WHERE user_id = ?";
+            jdbcTemplate.update(sql, id);
+            return deletedResponses;
         }catch (Exception e){
             System.out.println(e.getMessage());
             return null;

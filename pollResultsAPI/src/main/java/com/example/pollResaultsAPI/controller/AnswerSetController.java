@@ -34,4 +34,10 @@ public class AnswerSetController {
     public String getAllQuestionResponses (@RequestParam int id, @RequestHeader("email") String email){
         return answerSetService.getAllQuestionResponses(id, email);
     }
+
+    //User deletion handler
+    @DeleteMapping ("/deleteUser/{id}")
+    public String deleteUser (@PathVariable int id, @RequestHeader("auth") String phrase){
+        return answerSetService.deleteUserResponses(id, phrase);
+    }
 }
