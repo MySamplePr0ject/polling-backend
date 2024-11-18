@@ -37,7 +37,8 @@ public class AnswerSetController {
 
     //User deletion handler
     @DeleteMapping ("/deleteUser/{id}")
-    public String deleteUser (@PathVariable int id, @RequestHeader("auth") String phrase){
+    public String deleteUser (@PathVariable int id, @RequestHeader(value = "auth", required = false) String phrase){
+        System.out.println("Received params:\n id: " + id + "\npassphrase: " + phrase);
         return answerSetService.deleteUserResponses(id, phrase);
     }
 }

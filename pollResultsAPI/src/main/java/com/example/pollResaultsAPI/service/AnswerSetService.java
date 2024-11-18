@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class AnswerSetService {
@@ -157,7 +158,7 @@ public class AnswerSetService {
 
     //Handles answers deletion upon user deletion.
     public String deleteUserResponses (int id, String auth){
-        if (auth == "Th!$^I$^C0rrect"){
+        if ("Th!$^I$^C0rrect".equals(auth)){
             UserDTO deletedUser = findUserById(id);
             List<AnswerSet> deletedResponses = answerSetRepository.deleteAllUserAnswers(id);
             return "Total of " + deletedResponses.size() + " responses from user " + deletedUser.getName() + " " + deletedUser.getSurname() + " were deleted";
