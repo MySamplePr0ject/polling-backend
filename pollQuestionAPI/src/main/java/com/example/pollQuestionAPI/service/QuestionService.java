@@ -2,6 +2,7 @@ package com.example.pollQuestionAPI.service;
 
 import com.example.pollQuestionAPI.model.Question;
 import com.example.pollQuestionAPI.repository.QuestionRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class QuestionService {
     public Question getQuestionByID(int id){
         try {
             return questionRepository.getByID(id);
-        }catch (Exception e){
+        }catch (EntityNotFoundException e){
             System.out.println(e.getMessage());
             return null;
         }

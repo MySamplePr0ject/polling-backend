@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8083
 spring:
   main:
     allow-circular-references: true
@@ -13,5 +13,11 @@ spring:
   h2:
     console:
       enabled: true
-resultsAPI:
-  url: http://localhost:8083
+userAPI:
+  url: http://localhost:8081
+questionAPI:
+  url: http://localhost:8082
+#logging:
+#  level:
+#    com.example.pollResaultsAPI: DEBUG
+#    com.example.pollQuestionAPI: DEBUG
