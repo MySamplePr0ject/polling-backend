@@ -160,7 +160,6 @@ public class AnswerSetService {
     public String deleteUserResponses (int id, String auth){
         if ("Th!$^I$^C0rrect".equals(auth)){
             try{
-                System.out.println("TEST");
                 UserDTO deletedUser = findUserById(id);
                 List<AnswerSet> deletedResponses = answerSetRepository.deleteAllUserAnswers(id);
                 return "Total of " + deletedResponses.size() + " responses from user " + deletedUser.getName() + " " + deletedUser.getSurname() + " were deleted";
