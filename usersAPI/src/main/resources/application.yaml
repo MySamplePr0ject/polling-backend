@@ -13,5 +13,3 @@ spring:
   h2:
     console:
       enabled: true
-resultsAPI:
-  url: http://localhost:8083
