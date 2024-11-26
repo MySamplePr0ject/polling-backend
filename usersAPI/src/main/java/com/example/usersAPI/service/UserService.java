@@ -1,6 +1,5 @@
 package com.example.usersAPI.service;
 
-import com.example.usersAPI.ResultsClient;
 import com.example.usersAPI.model.User;
 import com.example.usersAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    ResultsClient resultsClient;
 
     public String createUser (User user){
         this.validateUser(user);
@@ -31,14 +28,12 @@ public class UserService {
 
     public String updateUser (User user){
         User updatedUser = userRepository.update(user);
-        return "The following user was successfully updated:\n" + updatedUser;
+        return "The following user was successfully updated:\n";
     }
 
     public String deleteUserByID (int id){
-        String deletedResponses = resultsClient.deleteUserResponses(id, "Th!$^I$^C0rrect");
         User deletedUser = userRepository.deleteById(id);
-        return deletedUser.getName() + " " + deletedUser.getSurname()+ " was successfully deleted.\n" +
-                deletedResponses + " responses from this user were deleted.";
+        return deletedUser.getName() + " " + deletedUser.getSurname()+ " was successfully deleted.";
     }
 
     public User getUserByID (int id){
