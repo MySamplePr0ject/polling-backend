@@ -2,9 +2,14 @@ package com.example.pollQuestionAPI.repository;
 
 import com.example.pollQuestionAPI.model.Question;
 import com.example.pollQuestionAPI.repository.mapper.QuestionMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,9 +26,8 @@ public class QuestionRepository {
 //            System.out.println(question.getQuestion());
             Question createdQuestion = this.getByQuestion(question.getQuestion());
             return createdQuestion;
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return null;
+        }catch (DataIntegrityViolationException e){
+            throw e;
         }
     }
 

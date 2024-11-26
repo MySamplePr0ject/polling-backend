@@ -3,6 +3,9 @@ package com.example.usersAPI.repository;
 import com.example.usersAPI.model.User;
 import com.example.usersAPI.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.jdbc.InvalidResultSetAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,16 +17,10 @@ public class UserRepository {
     JdbcTemplate jdbcTemplate;
 
     private final String TABLE = "users";
-    public User save (User user){
-        try{
-            String sql = "INSERT INTO " + TABLE + " (name, surname, email, age, address) VALUES ( ?, ?, ?, ?, ?);";
-            jdbcTemplate.update(sql, user.getName(), user.getSurname(), user.getEmail(), user.getAge(), user.getAddress());
-//            System.out.println(this.getUserByEmail(user.getEmail()));
-            return getUserByEmail(user.getEmail());
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public User save (User user) throws DataAccessException{
+                String sql = "INSERT INTO " + TABLE + " (name, surname, email, age, address) VALUES ( ?, ?, ?, ?, ?);";
+                jdbcTemplate.update(sql, user.getName(), user.getSurname(), user.getEmail(), user.getAge(), user.getAddress());
+                return getUserByEmail(user.getEmail());
     }
 
     public User update (User user){
@@ -31,9 +28,8 @@ public class UserRepository {
             String sql = "UPDATE " + TABLE +" SET name = ?, surname = ?, email = ?, age = ?, address = ? WHERE id = ?;";
             jdbcTemplate.update (sql, user.getName(), user.getSurname(), user.getEmail(), user.getAge(), user.getAddress(), user.getId());
             return user;
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return null;
+        }catch (DataAccessException e){
+            throw new IllegalArgumentException("E-mail already exists");
         }
     }
 

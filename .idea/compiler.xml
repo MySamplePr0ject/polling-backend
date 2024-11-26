@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="usersAPI" />
         <module name="pollQuestionAPI" />
+        <module name="usersAPI" />
         <module name="APIGateway" />
-        <module name="pollResaultsAPI" />
+        <module name="pollResultsAPI" />
       </profile>
     </annotationProcessing>
   </component>
@@ -17,7 +17,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="APIGateway" options="-parameters" />
       <module name="pollQuestionAPI" options="-parameters" />
-      <module name="pollResaultsAPI" options="-parameters" />
+      <module name="pollResultsAPI" options="-parameters" />
       <module name="usersAPI" options="-parameters" />
     </option>
   </component>
